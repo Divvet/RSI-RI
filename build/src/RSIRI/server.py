@@ -1,20 +1,35 @@
-from RSIRI.network import Network
-from RSIRI.tools import \
+import logging
+
+from build.src.RSIRI.network import Network
+from build.src.RSIRI.tools import \
     get_ipoc, \
     update_ipoc, \
-    xml_string_to_dict, \
+    convert_xml_string_to_dict, \
     merge_dict_with_xml_string, \
-    rsi_config_to_xml_string, \
+    convert_config_to_xml_string, \
     extract_config_from_rsi_config
 
-import logging
-from time import time
 # Log file location
 # Define the log format
 log_format = '[%(asctime)s] %(levelname)-8s %(name)-12s %(funcName)20s() %(lineno)s %(message)s'
 # Define basic configuration
 logging.basicConfig(level=logging.DEBUG, format=log_format, handlers=[logging.StreamHandler()])
 logger = logging.getLogger(__name__)
+
+
+def rsi_process(file, send, receive, status):
+    """Process containing the RSI networking functions
+
+    This process operates the networking side of the RSI RI Functions.
+    :param file: RSI config file
+    :param send: Variable containing Manager.Dict variable with RSI values
+    :param receive: Variable containing Manager.Dict variable with RSI values
+    :param status: Variable containing Manager.Dict variable with RSI status values
+    :return:
+    """
+    rsi_server = RSIServer(file, receive, send, status)
+    rsi_server.state = True
+    rsi_server.run()
 
 
 class RSIServer:
@@ -31,9 +46,10 @@ class RSIServer:
         # Network connection Object
         self.network = Network("", int(extract_config_from_rsi_config(config_file)[1]))
         # RSI Variables
-        self.send_string = rsi_config_to_xml_string(config_file, "receive")
+        self.send_string = convert_config_to_xml_string(config_file, "send")
         self.send_values = receive
-        self.receive_string = rsi_config_to_xml_string(config_file, "send")
+
+        self.receive_string = convert_config_to_xml_string(config_file, "receive")
         self.receive_values = send
 
         # Status (State": "Inactive", "Status": "", "Config": "")
@@ -51,38 +67,38 @@ class RSIServer:
         """ Operates RSI communication loop.
 
         Main method that runs a continuous loop polling the network socket,
-        polling client pipe, processing data and sending a reply
+        polling client pipe, processing data _working sending a reply
         """
-        print("RSI Server Waiting")
-        while self.status["State"] is True:
+        logger.debug("RSI Server Waiting")
+
+        while True:
             self.get_robot_data()
             self.send_reply()
         else:
             self.stop()
 
     def get_robot_data(self):
-        """ Get RSI data from robot and process.
+        """ Get RSI data from robot _working process.
 
-        Polls network socket and then updates RSIValues.values
-        Gets IPOC from message and updates self.ipoc
+        Polls network socket _working then updates RSIValues.values
+        Gets IPOC from message _working updates self.ipoc
         """
         # Polls network, returns a string of XML
         self.receive_string = self.network.receive()
-        logger.debug(self.receive_string)
         # Get IPOC
         self.ipoc = get_ipoc(self.receive_string)
         # Convert XML string into Dict
-        self.receive_values.update(xml_string_to_dict(self.receive_string))
+        self.receive_values.update(convert_xml_string_to_dict(self.receive_string))
 
     def send_reply(self):
         """ Send RSI Message.
 
-        Updates IPOC of message and sends the RSIValues Object .xml values
+        Updates IPOC of message _working sends the RSIValues Object .xml values
         """
         new_string = merge_dict_with_xml_string(self.send_values, self.send_string)
         new_string = update_ipoc(new_string, self.ipoc)
-        logger.debug(new_string)
-        self.network.send(new_string)
+        self.send_string = new_string
+        self.network.send(self.send_string)
 
 
 if __name__ == '__main__':
