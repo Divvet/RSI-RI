@@ -1,0 +1,20 @@
+<ROOT>
+   <CONFIG>
+      <IP_NUMBER>10.10.10.10</IP_NUMBER>   
+      <PORT>64000</PORT>                      
+      <SENTYPE>ImFree</SENTYPE>            
+      <ONLYSEND>FALSE</ONLYSEND>       
+   </CONFIG>
+   <SEND>
+      <ELEMENTS>
+         <ELEMENT TAG="SenPint" TYPE="LONG" INDX="1" /> 
+		 <ELEMENT TAG="Digout.o1" TYPE="BOOL" INDX="2" />
+      </ELEMENTS>
+   </SEND>
+   <RECEIVE>
+      <ELEMENTS>
+         <ELEMENT TAG="SenPint" TYPE="LONG" INDX="1" HOLDON="1" />    
+		 <ELEMENT TAG="Digout.o1" TYPE="BOOL" INDX="2" HOLDON="1" /> 		 
+      </ELEMENTS>
+   </RECEIVE>
+</ROOT>

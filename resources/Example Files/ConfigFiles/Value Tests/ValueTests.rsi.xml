@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSIObjects xsi:noNamespaceSchemaLocation="/Roboter/Config/System/Common/Schemes/RSIContext.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <RSIObject ObjType="ETHERNET" ObjTypeID="64" ObjID="ETHERNET1">
+    <Inputs>
+      <Input InIdx="1" OutObjID="SEN_PINT1" OutIdx="1" />
+      <Input InIdx="2" OutObjID="DIGOUT1" OutIdx="1" />
+    </Inputs>
+    <Parameters>
+      <Parameter Name="ConfigFile" ParamID="1" ParamValue="ValueTests.xml" IsRuntime="false" />
+      <Parameter Name="Timeout" ParamID="1" ParamValue="100" />
+      <Parameter Name="Flag" ParamID="4" ParamValue="-1" />
+      <Parameter Name="Precision" ParamID="8" ParamValue="1" />
+    </Parameters>
+  </RSIObject>
+  <RSIObject ObjType="SEN_PINT" ObjTypeID="57" ObjID="SEN_PINT1">
+    <Parameters>
+      <Parameter Name="Index" ParamID="1" ParamValue="1" />
+    </Parameters>
+  </RSIObject>
+  <RSIObject ObjType="MAP2SEN_PINT" ObjTypeID="16" ObjID="MAP2SEN_PINT1">
+    <Inputs>
+      <Input InIdx="1" OutObjID="ETHERNET1" OutIdx="1" />
+    </Inputs>
+    <Parameters>
+      <Parameter Name="Index" ParamID="1" ParamValue="1" />
+    </Parameters>
+  </RSIObject>
+  <RSIObject ObjType="DIGOUT" ObjTypeID="43" ObjID="DIGOUT1">
+    <Parameters>
+      <Parameter Name="Index" ParamID="1" ParamValue="10" />
+      <Parameter Name="DataSize" ParamID="2" ParamValue="0" />
+    </Parameters>
+  </RSIObject>
+  <RSIObject ObjType="SETDIGOUT" ObjTypeID="12" ObjID="SETDIGOUT1">
+    <Inputs>
+      <Input InIdx="1" OutObjID="ETHERNET1" OutIdx="2" />
+    </Inputs>
+    <Parameters>
+      <Parameter Name="Index" ParamID="1" ParamValue="10" />
+    </Parameters>
+  </RSIObject>
+</RSIObjects>
