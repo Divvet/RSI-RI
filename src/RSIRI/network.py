@@ -1,7 +1,7 @@
 import logging
 from socket import socket, AF_INET, SOCK_DGRAM, SOL_SOCKET, SO_RCVBUF
 
-from build.src.RSIRI.tools import change_config_port
+from src.RSIRI.tools import change_config_port
 
 
 class Network:

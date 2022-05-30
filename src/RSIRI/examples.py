@@ -5,7 +5,7 @@ from echo_server import RSIEchoServer
 
 if __name__ == '__main__':
 
-    config_file = "../../../resources/Example Files/ConfigFiles/rsi examples/RSI_EthernetConfig.xml"
+    config_file = "../../resources/Example Files/ConfigFiles/rsi examples/RSI_EthernetConfig.xml"
     # Create RSI Client
     client = RSIClient(config_file)
 

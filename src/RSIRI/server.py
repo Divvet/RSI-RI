@@ -1,7 +1,7 @@
 import logging
 
-from build.src.RSIRI.network import Network
-from build.src.RSIRI.tools import \
+from src.RSIRI.network import Network
+from src.RSIRI.tools import \
     get_ipoc, \
     update_ipoc, \
     convert_xml_string_to_dict, \

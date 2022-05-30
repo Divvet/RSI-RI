@@ -1,8 +1,8 @@
 import logging
 from time import sleep
 
-from build.src.RSIRI.network import Network
-from build.src.RSIRI.tools import \
+from src.RSI-RI.network import Network
+from src.RSI-RI.tools import \
     get_ipoc, \
     update_ipoc, \
     convert_xml_string_to_dict, \

@@ -1,9 +1,9 @@
 from multiprocessing import Process, Manager
 from time import sleep
 
-from build.src.RSIRI.log import log_process
-from build.src.RSIRI.server import rsi_process
-from build.src.RSIRI.tools import \
+from src.RSIRI.log import log_process
+from src.RSIRI.server import rsi_process
+from src.RSIRI.tools import \
     convert_rsi_config_to_dict, \
     extract_config_from_rsi_config, \
     check_position_values
