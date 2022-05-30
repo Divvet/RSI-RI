@@ -14,7 +14,6 @@ interval = x_finish/rate
 # 20 mm in 0.004 ms
 
 
-
 while round(x_current,2) is not round(x_finish,2):
     x_current += rate
     print(round(x_current, 2))
